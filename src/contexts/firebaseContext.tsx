@@ -3,11 +3,13 @@ import React, {createContext, FC, HTMLProps} from "react";
 import {Auth, getAuth} from "firebase/auth";
 import {Firestore, getFirestore} from "firebase/firestore";
 import {FirebaseApp, initializeApp} from "firebase/app";
+import {getStorage, FirebaseStorage} from "firebase/storage";
 
 export const firebaseContext = createContext<{
   app: FirebaseApp;
   auth: Auth;
   db: Firestore;
+  storage: FirebaseStorage;
 }>(null);
 
 type IFirebaseProps = HTMLProps<HTMLElement>;
@@ -25,6 +27,7 @@ const Firebase: FC<IFirebaseProps> = ({children}) => {
 
   const auth = getAuth(app);
   const db = getFirestore(app);
+  const storage = getStorage(app);
 
   return (
     <firebaseContext.Provider
@@ -32,6 +35,7 @@ const Firebase: FC<IFirebaseProps> = ({children}) => {
         app,
         auth,
         db,
+        storage
       }}
     >
       {children}
