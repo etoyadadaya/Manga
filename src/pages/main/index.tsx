@@ -4,7 +4,7 @@ import useRequireAuth from "../../hooks/useRequireAuth";
 import {signOut} from "firebase/auth";
 import {firebaseContext} from "../../contexts/firebaseContext";
 import {ref, uploadBytesResumable, getDownloadURL, listAll} from "firebase/storage"
-import {Button, Card, Input, List, Image, Progress, message} from "antd";
+import {Button, Card, Input, List, Image, Progress, message, Carousel, Slider} from "antd";
 
 const Main: FC = () => {
   useRequireAuth("/login");
@@ -68,7 +68,7 @@ const Main: FC = () => {
 
   const handleRemoveFile = () => setImageFile(undefined);
 
-  const listRef = ref(storage, 'image/');
+  const listRef = ref(storage, 'berserk/1/');
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -87,8 +87,6 @@ const Main: FC = () => {
     loadImages();
   }, []);
 
-  console.log(links);
-
   return (
     <>
       <div className={styles.container}>
@@ -96,7 +94,8 @@ const Main: FC = () => {
           <Input
             type="file"
             placeholder="Select file to upload"
-            accept="image/png"
+            accept="image/*"
+            // accept="image/png"
             onChange={(files) => handleSelectedFile(files.target.files)}
           />
 
@@ -132,23 +131,15 @@ const Main: FC = () => {
                   </div>
                 </>
               )}
-
-              {downloadURL && (
-                <>
-                  <Image
-                    src={downloadURL}
-                    alt={downloadURL}
-                    style={{ width: 200, height: 200, objectFit: 'cover' }}
-                  />
-                </>
-              )}
             </Card>
         </div>
-          <>
-            {links.map((link, key) =>
-              <img key={key} src={link} alt=""/>
-            )}
-          </>
+          <div className={styles.cards}>
+            <Carousel swipe={true} adaptiveHeight={true}>
+                {links.map((link, key) =>
+                  <Image preview={false} src={link} alt="" key={key}/>
+                )}
+            </Carousel>
+          </div>
         </div>
         <div>
           <Button
