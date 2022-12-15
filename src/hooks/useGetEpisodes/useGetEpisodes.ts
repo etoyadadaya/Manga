@@ -5,7 +5,6 @@ import {firebaseContext} from "../../contexts/firebaseContext";
 const useGetEpisodes = () => {
   const {db} = useContext(firebaseContext);
   const [episode, setEpisode] = useState<number>(0);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const episodesCol = collection(db, `manga`);
@@ -16,13 +15,9 @@ const useGetEpisodes = () => {
           setEpisode(episodeArr.pop());
         });
       });
+  }, []);
 
-    if (episode !== 0) {
-      setIsLoading(false);
-    }
-  }, [episode]);
-
-  return {episode, isLoading};
+  return {episode};
 }
 
 export default useGetEpisodes;
