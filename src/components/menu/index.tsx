@@ -10,7 +10,7 @@ interface IMenu extends HTMLProps<HTMLDivElement> {
 }
 
 const Menu: FC<IMenu> = ({episodes, setEpisode, isMenuActive, setIsMenuActive}) => {
-  const getAnimalsContent = episode => {
+  const getEpisodesNumber = episode => {
     let content = [];
     for (let i = 1; i <= episode; i++) {
       content.push(<button onClick={() => setEpisode(i)} className={styles.episodeBtn} key={i}>{i}</button>);
@@ -28,7 +28,7 @@ const Menu: FC<IMenu> = ({episodes, setEpisode, isMenuActive, setIsMenuActive}) 
         })}>
         <div className={styles.content}>
           Эпизод:
-          {getAnimalsContent(episodes)}
+          {getEpisodesNumber(episodes)}
         </div>
       </div>
     </>

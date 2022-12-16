@@ -30,11 +30,11 @@ const Main: FC = () => {
     <>
       <Menu isMenuActive={isMenuActive} setIsMenuActive={setIsMenuActive} episodes={episode} setEpisode={setNum}/>
       <div className={styles.container}>
-        <Header toggleMenu={setIsMenuActive}/>
+        <Header setEpisode={setNum} activeEpisode={num} toggleMenu={setIsMenuActive}/>
         <div className={styles.cards}>
           <Carousel swipe={true} adaptiveHeight={true}>
               {imageUrls.map((link, key) =>
-                <Image preview={false} src={link} alt="" key={key}/>
+                <Image preview={false} decoding={"async"} src={link} alt="" key={key}/>
               )}
           </Carousel>
         </div>
